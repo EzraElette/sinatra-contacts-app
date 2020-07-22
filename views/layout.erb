@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  <link rel="stylesheet" href="/stylesheets/application.css">
+    <title>Contacts</title>
+  </head>
+  <body>
+
+    <%if session[:error] %>
+      <h2 class="flash" id="error"><%= session.delete(:error)%></h2>
+    <%elsif session[:success] %>
+      <h2 class="flash"><%= session.delete(:success)%></h2>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>
