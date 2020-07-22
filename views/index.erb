@@ -1,1 +1,8 @@
-<h3>Hello</h3>
+<form action='/add' method="get">
+  <button type="submit">Add Contact</button>
+</form>
+<ul>
+<% @contacts.each do |contact, info| %>
+  <li><a href="/<%= contact %>"><%= info[:name] %></a></li>
+<% end %>
+</ul>

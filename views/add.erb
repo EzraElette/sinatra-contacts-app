@@ -1,0 +1,59 @@
+<form action="/add" method="post" id="add">
+  <fieldset id="identity">
+    <label for="firstname">First Name:</label>
+    <input type="text" name="firstname" autofocus>
+    <label for="lastname">Last Name:</label>
+    <input type="text" name="lastname"><br>
+    <label for="birthday">Birthday:</label>
+    <select id="birthmonth" name="birthmonth">
+      <option></option>
+      <% month_names.each do |month| %>
+        <option value="<%= month %>"><%= month %></option>
+      <% end %>
+    </select>
+    <select id="birthday" name="birthday">
+      <option></option>
+      <% (1..31).each do |day| %>
+        <option value="<%= day %>"><%= day %></option>
+      <% end %>
+    </select>
+    <select for="birthyear" name="birthyear">
+      <option></option>
+      <% (1900..2020).reverse_each do |year| %>
+        <option value="<%= year %>"><%= year %></option>
+      <% end %>
+    </select>
+  </fieldset>
+  <fieldset id="relationship">
+    <label for="relationship">Relationship:</label>
+    <select id="relationship" name="relationship">
+        <option></option>
+      <% contact_relationships.each do |relation| %>
+        <option value="<%= relation%>"><%= relation %></option>
+      <% end %>
+    </select>
+  </fieldset>
+  <fieldset id="phone">
+    <label for="phone">Phone Number:</label>
+    <input type="text" name="phone">
+  </fieldset>
+  <fieldset id="email">
+    <label for="email">Email:</label>
+    <input type="text" name="email">
+  </fieldset>
+  <fieldset id="address">
+    <label for="address">Street Address:</label>
+    <input type="text" name="address">
+    <label for="city">City:</label>
+    <input type="text" name="city">
+    <label for="city">State:</label>
+    <select id="state" name="state">
+      <% STATE_ABBR_TO_NAME.keys.each do |state| %>
+        <option value="<%= state %>"><%= state %></option>
+      <% end %>
+    </select>
+    <label for="zipcode">Zip Code:</label>
+    <input type="text" name="zipcode">
+  </fieldset>
+  <button type="submit" value="create">Create Contact</button>
+</form>

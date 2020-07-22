@@ -32,10 +32,11 @@ body {
 
 input {
   border-radius: 4px;
-  background-color: #98C1D9;
+  background-color: #E0FBFC;
   border: none;
   outline: none;
   box-shadow: 3px 3px 4px rgb(61,90,128,1), -3px -3px 4px  rgba(172, 244, 247, 0.5);
+  text-align: center;
 }
 
 button {

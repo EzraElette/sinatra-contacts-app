@@ -1,15 +1,24 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ansi (1.5.0)
     backports (3.18.1)
     bcrypt (3.1.14)
+    builder (3.2.4)
     erubis (2.7.0)
+    minitest (5.14.1)
+    minitest-reporters (1.4.2)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     multi_json (1.15.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     rack (2.2.3)
     rack-protection (2.0.8.1)
       rack
+    ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.2)
     sinatra (2.0.8.1)
       mustermann (~> 1.0)
@@ -31,6 +40,8 @@ PLATFORMS
 DEPENDENCIES
   bcrypt
   erubis
+  minitest
+  minitest-reporters
   sinatra
   sinatra-contrib
 
