@@ -3,7 +3,7 @@ require 'date'
 require 'erubis'
 require 'fileutils'
 require 'sinatra'
-require 'sinatra/reloader'
+require 'sinatra/reloader' if development?
 require 'yaml'
 require_relative 'states'
 
