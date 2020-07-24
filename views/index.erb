@@ -4,6 +4,7 @@
   <input type="text" id="search" onkeyup="searchContacts()" placeholder="search contacts"><br>
   <form action="/" method="get">
     <select name="relationship">
+      <option></option>
       <% contact_relationships.each do |relation| %>
         <option value="<%= relation %>" <%= ('selected' if params[:relationship] == relation) %>><%= relation %></option>
       <% end %>
