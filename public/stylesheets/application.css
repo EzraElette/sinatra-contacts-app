@@ -100,3 +100,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+
+.logout {
+  margin-left: 80rem;
+}

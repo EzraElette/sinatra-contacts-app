@@ -11,8 +11,14 @@
     <button type="submit">Sort</button>
   </form><br>
   <% @index_contacts.each do |letter, _| %>
-    <a href="#<%= letter %>"><button><%= letter %></button></a><br>
+    <a href="#<%= letter %>"><button><%= letter %></button></a>
   <% end %>
+</div>
+
+<div class="logout">
+  <form action="/logout" method="post">
+    <button type="submit" value="logout">Log Out</button>
+  </form>
 </div>
 <div class="content">
 

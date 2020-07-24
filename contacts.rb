@@ -40,7 +40,8 @@ def data_path
 end
 
 def user_list
-  YAML.load_file('users.yml')
+  user_list = YAML.load_file('users.yml')
+  user_list ? user_list : {}
 end
 
 def verify_credentials(username, password)
@@ -49,6 +50,7 @@ def verify_credentials(username, password)
 end
 
 def signed_in?
+  return false unless user_list
   user_list.keys.include?(session[:username])
 end
 
@@ -112,6 +114,10 @@ def index_contacts(contacts)
   return_hash.sort
 end
 
+def verify_contact_exists(contact)
+  redirect '/' unless load_contacts_for(session[:username]).include?(contact)
+end
+
 get '/login' do
   erb :login
 end
@@ -129,6 +135,12 @@ post '/login' do
     status 422
     erb :login
   end
+end
+
+post '/logout' do
+  session.delete(:username)
+  session[:success] = 'You have been signed out.'
+  redirect '/login'
 end
 
 get '/signup' do
@@ -151,7 +163,7 @@ post '/signup' do
     hashed_password = BCrypt::Password.create(password1)
     filename = File.basename(username) + '.yml'
     contacts_list_path = File.join(data_path, filename)
-    File.write(contacts_list_path, "---\ncontacts:")
+    File.write(contacts_list_path, "---\ncontacts: {}")
     File.open('users.yml', 'a') { |file| file.write "\n'#{ username }': '#{ hashed_password }'" }
     session[:success] = "Your account has been created. You may now log in."
     redirect '/login'
@@ -207,6 +219,7 @@ end
 
 get '/:contact' do
   require_signed_in_user(session)
+  verify_contact_exists(params[:contact])
   params.each { |k, v| params[k] = escape_html(v) }
   @contact_link = params[:contact]
   @contact = get_info_for(params[:contact])

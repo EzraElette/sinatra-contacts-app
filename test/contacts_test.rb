@@ -118,30 +118,78 @@ class ContactsTest < Minitest::Test
 
   end
 
-  def test_add_form
-    contact = {
-      firstname: 'Ezra',
-      lastname: 'Ellette',
-      birthmonth: 'December',
-      birthday: '15',
-      birthyear: '2000',
-      relationship: 'family',
-      phone: '5555551234',
-      email: 'ezraemail@gmail',
-      address: '33 Shark Ave',
-      city: 'Spiny',
-      state: 'RI',
-      zipcode: '90222'
+  def contact(first_name = "Ezra")
+    {
+    firstname: first_name,
+    lastname: 'Ellette',
+    birthmonth: 'December',
+    birthday: '15',
+    birthyear: '2000',
+    relationship: 'family',
+    phone: '5555551234',
+    email: 'ezraemail@gmail',
+    address: '33 Shark Ave',
+    city: 'Spiny',
+    state: 'RI',
+    zipcode: '90222'
     }
+  end
+
+  def test_add_form
 
     post '/add', contact, admin_session
 
     assert_equal 302, last_response.status
-    assert_equal "Ezra Ellette has been added to your contacts.", session[:success]
+    assert_equal 'Ezra Ellette has been added to your contacts.', session[:success]
 
     get '/Ezra_Ellette', {}, admin_session
 
     assert_equal 200, last_response.status
-    assert_includes last_response.body, "name: Ezra"
+    assert_includes last_response.body, 'Ezra Ellette'
+  end
+
+  def test_edit_form
+    post '/add', contact, admin_session
+
+    get '/Ezra_Ellette/edit', {}, admin_session
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, 'First Name'
+    assert_includes last_response.body, '<button type="submit"'
+  end
+
+  def test_edit
+    post '/add', contact, admin_session
+
+    post '/Ezra_Ellette', contact('Ezras'), admin_session
+
+    assert_equal 302, last_response.status
+
+    get last_response['Location'], {}, admin_session
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, 'Ezras Ellette'
+  end
+
+  def test_delete
+    post '/add', contact, admin_session
+
+    get last_response['Location'], {}, admin_session
+
+    post '/Ezra_Ellette/delete', {}, admin_session
+
+    assert_equal 302, last_response.status
+
+    get last_response['Location'], {}, admin_session
+
+    refute_includes last_response.body, 'Ezra Ellette'
+  end
+
+  def test_logout
+    post '/logout', {}, admin_session
+
+    assert_equal 302, last_response.status
+
+    assert_equal 'You have been signed out.', session[:success]
   end
 end
