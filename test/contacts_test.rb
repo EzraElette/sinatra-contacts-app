@@ -18,13 +18,13 @@ class ContactsTest < Minitest::Test
 
   def setup
     FileUtils.mkdir_p(data_path)
-    File.write('users.yml', "'admin': '#{BCrypt::Password.create('secret')}'")
+    File.write(File.join(data_path, 'users.yml'), "'admin': '#{BCrypt::Password.create('secret')}'")
     File.write(File.join(data_path, 'admin.yml'), "---\ncontacts: {}")
   end
 
   def teardown
     FileUtils.rm_rf(data_path)
-    FileUtils.rm_f('users.yml')
+    FileUtils.rm_f(File.join(data_path, 'users.yml'))
   end
 
   def session

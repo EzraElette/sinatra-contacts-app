@@ -40,7 +40,7 @@ def data_path
 end
 
 def user_list
-  user_list = YAML.load_file('users.yml')
+  user_list = YAML.load_file(File.join(data_path, 'users.yml') )
   user_list ? user_list : {}
 end
 
@@ -64,7 +64,7 @@ end
 def verify_username(username)
   users = user_list.keys
 
-  if users.include?(username)
+  if users.include?(username) || username == 'users'
     session[:error] = "That username is taken."
     redirect '/signup'
   elsif username !~ /[\w]+{3,20}/
@@ -164,7 +164,7 @@ post '/signup' do
     filename = File.basename(username) + '.yml'
     contacts_list_path = File.join(data_path, filename)
     File.write(contacts_list_path, "---\ncontacts: {}")
-    File.open('users.yml', 'a') { |file| file.write "\n'#{ username }': '#{ hashed_password }'" }
+    File.open(File.join(data_path, 'users.yml'), 'a') { |file| file.write "\n'#{ username }': '#{ hashed_password }'" }
     session[:success] = "Your account has been created. You may now log in."
     redirect '/login'
   end
