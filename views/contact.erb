@@ -1,5 +1,12 @@
-<ul>
-  <% @contact.each do |k, v| %>
-    <li><%= k %>: <%= v %></li>
-  <% end %>
-</ul>
+<a href="/"><button>Home Page</button></a><br>
+<a href="/<%= @contact_link %>/edit"><button>Edit Contact</button></a>
+<form id="delete" action="/<%= @contact_link %>/delete" method="post"><button type="submit" value="delete">Delete Contact</button></form>
+
+<h2 id="name"><%= @name %></h2>
+<h3><%= @relationship %></h3>
+<div id="contact">
+  <a href="tel:<%= @number %>"><button><h4><%= @number %></h4></button></a><br>
+  <a href="mailto://<%= @email %>"><button><h4><%= @email %></h4></button></a><br>
+  <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<%= Rack::Utils.escape(@address) %>"><button><h4><%= @address %></h4></button></a>
+
+</div>

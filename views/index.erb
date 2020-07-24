@@ -1,8 +1,27 @@
-<form action='/add' method="get">
-  <button type="submit">Add Contact</button>
-</form>
-<ul>
-<% @contacts.each do |contact, info| %>
-  <li><a href="/<%= contact %>"><%= info[:name] %></a></li>
-<% end %>
-</ul>
+<script type="text/javascript" src="/javascript/filter_search.js"></script>
+<div class="sidebar">
+  <a href="/add"><button type="submit">Add Contact</button></a><br>
+  <input type="text" id="search" onkeyup="searchContacts()" placeholder="search contacts"><br>
+  <form action="/" method="get">
+    <select name="relationship">
+      <% contact_relationships.each do |relation| %>
+        <option value="<%= relation %>" <%= ('selected' if params[:relationship] == relation) %>><%= relation %></option>
+      <% end %>
+    </select>
+    <button type="submit">Sort</button>
+  </form><br>
+  <% @index_contacts.each do |letter, _| %>
+    <a href="#<%= letter %>"><button><%= letter %></button></a><br>
+  <% end %>
+</div>
+<div class="content">
+
+  <ul id="contacts">
+    <% @index_contacts.each do |letter, contacts| %>
+      <h3 class="letter" id="<%= letter %>"><%= letter %></h3>
+      <% contacts.each do |contact, info| %>
+        <li><a href="/<%= contact %>"><button><%= info[:firstname] %> <%= info[:lastname] %></button></a></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

@@ -12,7 +12,8 @@
     <%elsif session[:success] %>
       <h2 class="flash"><%= session.delete(:success)%></h2>
     <% end %>
-
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

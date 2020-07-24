@@ -19,6 +19,7 @@ class ContactsTest < Minitest::Test
   def setup
     FileUtils.mkdir_p(data_path)
     File.write('users.yml', "'admin': '#{BCrypt::Password.create('secret')}'")
+    File.write(File.join(data_path, 'admin.yml'), "---\ncontacts: {}")
   end
 
   def teardown
@@ -118,6 +119,29 @@ class ContactsTest < Minitest::Test
   end
 
   def test_add_form
-    skip
+    contact = {
+      firstname: 'Ezra',
+      lastname: 'Ellette',
+      birthmonth: 'December',
+      birthday: '15',
+      birthyear: '2000',
+      relationship: 'family',
+      phone: '5555551234',
+      email: 'ezraemail@gmail',
+      address: '33 Shark Ave',
+      city: 'Spiny',
+      state: 'RI',
+      zipcode: '90222'
+    }
+
+    post '/add', contact, admin_session
+
+    assert_equal 302, last_response.status
+    assert_equal "Ezra Ellette has been added to your contacts.", session[:success]
+
+    get '/Ezra_Ellette', {}, admin_session
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, "name: Ezra"
   end
 end

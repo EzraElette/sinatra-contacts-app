@@ -1,9 +1,15 @@
 ---
 contacts:
   Ezra_Ellette:
-    :name: Ezra Ellette
-    :birthday: May, 8, 2014
-    :relationship: school
-    :number: awdawda
+    :firstname: Ezra
+    :lastname: Ellette
+    :birthday: '15'
+    :birthmonth: December
+    :birthyear: '2000'
+    :relationship: other
+    :number: "+1(314)296-0642"
     :email: esrareara
-    :addres: 33 Shark Ave, St. Louis, MO, 63123
+    :address: 33 Shark Ave
+    :city: St. Louis
+    :state: MO
+    :zipcode: '63123'

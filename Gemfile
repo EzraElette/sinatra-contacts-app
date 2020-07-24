@@ -6,4 +6,3 @@ gem 'minitest'
 gem 'minitest-reporters'
 gem 'sinatra'
 gem 'sinatra-contrib'
-
