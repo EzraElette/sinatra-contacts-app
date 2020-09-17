@@ -101,14 +101,23 @@ def verify_name(name)
   end
 end
 
+def verify_name_is_unique(name)
+  names = load_contacts_for(session[:username])
+  if names.include?(name.split(' ').join('_'))
+    session[:error] = "Contact names must be unique."
+    redirect '/add'
+  end
+end
+
 def index_contacts(contacts)
   return_hash = {}
   contacts.sort.each do |name, info|
-    if return_hash.keys.include?(name[0])
-      return_hash[name[0].upcase][name] = info
+    first_letter = name[0].upcase
+    if return_hash.keys.include?(first_letter)
+      return_hash[first_letter][name] = info
     else
-      return_hash[name[0].upcase] = {}
-      return_hash[name[0].upcase][name] = info
+      return_hash[first_letter] = {}
+      return_hash[first_letter][name] = info
     end
   end
   return_hash.sort
@@ -196,6 +205,7 @@ post '/add' do
   lastname = params[:lastname]
   full_name = [params[:firstname], params[:lastname]].join(' ')
   verify_name(full_name)
+  verify_name_is_unique(full_name)
   birthday = [params[:birthmonth], params[:birthday], params[:birthyear]].join(' ')
   relationship = params[:relationship]
   phone_number = params[:phone]

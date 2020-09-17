@@ -57,4 +57,4 @@ STATE_ABBR_TO_NAME = {
     'WV' => 'West Virginia',
     'WI' => 'Wisconsin',
     'WY' => 'Wyoming'
-  }
+}

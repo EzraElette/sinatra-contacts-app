@@ -192,4 +192,12 @@ class ContactsTest < Minitest::Test
 
     assert_equal 'You have been signed out.', session[:success]
   end
+
+  def test_contact_names_must_be_unique
+    post '/add', contact, admin_session
+    post '/add', contact, admin_session
+
+    assert_equal 302, last_response.status
+    assert_equal 'Contact names must be unique.', session[:error]
+  end
 end
