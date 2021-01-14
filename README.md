@@ -1,3 +1,3 @@
 # sinatra-contacts-app
 
-[https://contacts-app-sinatra.herokuapp.com/login]
+[View Live](https://contacts-app-sinatra.herokuapp.com/login)
